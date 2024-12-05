@@ -1,5 +1,6 @@
 import Sport from "../models/sport.model.js"
 import Ranking from '../models/ranking.model.js';
+import Notice from "../models/notice.model.js";
 
 // Crear un nuevo ranking
 export const createRanking = async (req, res) => {
@@ -48,3 +49,28 @@ export const getSports = async (req, res) => {
         return res.status(500).json({ message: "Error al obtener las imágenes", error });
     }
 };
+
+// Crear una nueva noticia
+export const createNotice = async (req, res) => {
+    const { title, description, linkImage, linkNotice } = req.body;
+    try {
+        const newNotice = new Notice({  title, description, linkImage, linkNotice });
+        await newNotice.save();
+        return res.status(201).json(newNotice);
+    } catch (error) {
+        console.error("Error al crear el aviso:", error);
+        return res.status(500).json({ message: "Error al crear el aviso", error });
+    }
+};
+
+// Obtener todas las noticias
+export const getNotices = async (req, res) => {
+    try {
+        const notices = await Notice.find();
+        return res.status(200).json(notices);
+    } catch (error) {
+        console.error("Error al obtener los avisos:", error);
+        return res.status(500).json({ message: "Error al obtener los avisos", error });
+    }
+};
+
