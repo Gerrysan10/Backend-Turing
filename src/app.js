@@ -11,8 +11,8 @@ app.use(cors({
 }))
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(authRoutes);
-app.use(sportRoutes);
+app.use('/api',authRoutes);
+app.use('/api',sportRoutes);
 
 
 export default app;
