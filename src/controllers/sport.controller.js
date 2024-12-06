@@ -74,3 +74,45 @@ export const getNotices = async (req, res) => {
     }
 };
 
+// Eliminar una noticia por ID
+export const deleteNotice = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedNotice = await Notice.findByIdAndDelete(id);
+        if (!deletedNotice) {
+            return res.status(404).json({ message: "Noticia no encontrada" });
+        }
+        return res.status(200).json({ message: "Noticia eliminada con éxito" });
+    } catch (error) {
+        console.error("Error al eliminar la noticia:", error);
+        return res.status(500).json({ message: "Error al eliminar la noticia", error });
+    }
+};
+
+// Actualizar una noticia por ID
+export const updateNotice = async (req, res) => {
+    const { id } = req.params;
+    const { title, description, linkImage, linkNotice } = req.body;
+    try {
+        const updatedNotice = await Notice.findByIdAndUpdate(
+            id,
+            { title, description, linkImage, linkNotice },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedNotice) {
+            return res.status(404).json({ message: "Noticia no encontrada" });
+        }
+        return res.status(200).json(updatedNotice);
+    } catch (error) {
+        console.error("Error al actualizar la noticia:", error);
+        return res.status(500).json({ message: "Error al actualizar la noticia", error });
+    }
+};
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-import { createRanking,createSport,getSports, getRankings, createNotice, getNotices } from "../controllers/sport.controller.js";
+import { createRanking,createSport,getSports, getRankings, createNotice, getNotices, updateNotice, deleteNotice} from "../controllers/sport.controller.js";
 import { sportScheme, rankingScheme, noticeSchema} from "../schemas/sport.schema.js";
 import { validateSchema } from "../middlewares/validator.middleware.js";
 import { Router } from "express";
@@ -22,5 +22,12 @@ router.post("/notices", validateSchema(noticeSchema), createNotice);
 
 // Ruta para obtener todas las noticias
 router.get("/notices", getNotices);
+
+// Ruta para actualizar una noticia por ID
+router.put("/notices/:id", validateSchema(noticeSchema), updateNotice);
+
+// Ruta para eliminar una noticia por ID
+router.delete("/notices/:id", deleteNotice);
+
 
 export default router;
