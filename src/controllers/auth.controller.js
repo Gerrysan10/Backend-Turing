@@ -21,9 +21,9 @@ export const register = async (req, res) => {
         res.cookie('token',token);
         res.json({
             id: userSaved.id,
-
             username: userSaved.username,
             phone: userSaved.phone,
+            role:userSaved.role,
             email: userSaved.email,
             createAt: userSaved.createdAt,
             UpdateAt: userSaved.updatedAt,
